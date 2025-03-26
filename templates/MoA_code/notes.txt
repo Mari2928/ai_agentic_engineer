@@ -1,0 +1,13 @@
+# Title: Mixture-of-Agents Applied for Code Generation
+# Experiment description: Modify the user_prompt using Chain-of-Thought approach to augment examples or contexts, and run the Mixture-of-agents model. Compare the execution speed and final performance with the baseline model of a mixture-of-agents model (run_0).
+## Run 0: Baseline
+Results: {'human_eval': {"pass_at_k_mean": 0.8902439024390244, "total_exec_time_mean": 0.002897024154663086, "total_run_time_mean": 458.89002656936646}}
+Description: Baseline results.
+
+## Run 1: Mixture-of-Agents
+Results: {'human_eval': {"pass_at_k_mean": 0.9085365853658537, "total_exec_time_mean": 0.002570629119873047, "total_run_time_mean": 3770.502231359482}}
+Description: Mixture-of-Agents results.
+
+## Run 1: Chain-of-Thoughts Mixture-of-Agents
+Results: {'human_eval': {'pass_at_k_mean': 0.9207317073170732, 'total_exec_time_mean': 0.0029709339141845703, 'total_run_time_mean': 3758.660099506378}}
+Description: Chain-of-Thoughts Mixture-of-Agents results.

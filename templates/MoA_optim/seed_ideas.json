@@ -1,0 +1,11 @@
+[
+    {
+        "Name": "moa_optim",
+        "Title": "Mixture-of-Agents Applied for Regression Performance Optimization",
+        "Experiment": "Change the manual_weights only (i.e., [weight, bias]) and try to optimize the MSE as smaller as possible based on the performance in the previous runs. Experiment 1. Run as it is using the user_prompt provided on ml_regression data. Experiment 2. Augment the user_prompt using Chain-of-thought approach so that the MoA can better optimize weights for the regression task. Run Experiment 2 using that prompt. DO NOT attempt more than those two experiments to improve performance. Performance decline is fine, just report so. Please write a report after Experiment 1 and 2, comparing optimization performance (changes on mean squared errors across 30 iterations) to baseline.",
+        "Interestingness": 6,
+        "Feasibility": 4,
+        "Novelty": 4,
+        "novel": true
+    }
+]

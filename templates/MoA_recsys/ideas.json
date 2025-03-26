@@ -1,0 +1,11 @@
+[
+    {
+        "Name": "moa_recsys",
+        "Title": "Mixture-of-Agents Applied for Recommendation System",
+        "Experiment": "Recommend a ranked list of items that the user would buy next based on the previous purchase history. Experiment 1. Run as it is using the user_prompt provided on recsys data. Experiment 2. Augment the user_prompt using Chain-of-thought approach so that the MoA can better analyze the user's purchase history for the improved next-item prediction. Run Experiment 2 using that prompt. DO NOT attempt more than those two experiments to improve performance. Performance decline is fine, just report so. Please write a report after Experiment 1 and 2, comparing recommendation performance (NDCG@10 scores across 100 users) to baseline of GPT4o. YOU DON'T HAVE TO PLOT ANYTHING, BUT MAKE SURE TO PRESENT NUMERICAL RESULTS IN A TABLE.",
+        "Interestingness": 6,
+        "Feasibility": 4,
+        "Novelty": 4,
+        "novel": true
+    }
+]

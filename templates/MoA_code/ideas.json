@@ -1,0 +1,11 @@
+[
+    {
+        "Name": "moa_code",
+        "Title": "Mixture-of-Agents Applied for Code Generation",
+        "Experiment": "Experiment 1. Run the code as it is without modifying anything. Experiment 2. Modify the user_prompt using Chain-of-Thought approach to augment examples or contexts, and run the Mixture-of-agents model. After these 2 experiments, compare the execution speed and final performances of those with the baseline model of GPT4o (run_0). When writing a report please make sure the numerical results are formatted in a Latex Table.",
+        "Interestingness": 6,
+        "Feasibility": 4,
+        "Novelty": 4,
+        "novel": true
+    }
+]
