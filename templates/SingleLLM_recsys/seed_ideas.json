@@ -1,0 +1,11 @@
+[
+    {
+        "Name": "moa_code",
+        "Title": "GPT4o-mini Applied for optimization of an ML regression model",
+        "Experiment": "Run as it is as a baseline. ",
+        "Interestingness": 6,
+        "Feasibility": 4,
+        "Novelty": 4,
+        "novel": true
+    }
+]

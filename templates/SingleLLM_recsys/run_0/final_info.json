@@ -1,0 +1,1 @@
+{"recsys": {"means": {"ndcg_10_ave_mean": 0.0926109088322684, "ht_10_ave_mean": 0.21, "total_run_time_mean": 119.83702683448792}, "stderrs": {"ndcg_10_ave_stderr": 0.0, "ht_10_ave_stderr": 0.0, "total_run_time_stderr": 0.0}, "final_info_dict": {"ndcg_10_ave": [0.0926109088322684], "ht_10_ave": [0.21], "total_run_time": [119.83702683448792]}}}

@@ -1,0 +1,11 @@
+[
+    {
+        "Name": "moa_code",
+        "Title": "GPT4o-mini Applied for Code Generation",
+        "Experiment": "Extend the GPT agent model for instruction-following tasks to code generation tasks, where the LLM API is called to generate Python code given a problem of programming competition. Augment the user_prompt with instruction to make sure each LLM generates a final submission code only in string, without any text explanation and a code block. Remove a code block if the output code is wrapped with three backticks (```), check the correct indentation to make sure the output can be tested with unit tests. After you complete this change, we will run the command `python experiment.py --out_dir=run_1'. Compare the execution speed and final performance with the baseline model.",
+        "Interestingness": 6,
+        "Feasibility": 4,
+        "Novelty": 4,
+        "novel": true
+    }
+]
