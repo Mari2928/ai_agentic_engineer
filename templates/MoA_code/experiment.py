@@ -102,7 +102,6 @@ DO NOT include string format with double-quotation mark ("), any text explanatio
                 """
 
                 final_prompt = problem + user_prompt
-                print("final_prompt", final_prompt)
 
                 results = await asyncio.gather(*[run_llm(model, final_prompt, loop) for model in reference_models])
 
@@ -127,7 +126,6 @@ DO NOT include string format with double-quotation mark ("), any text explanatio
                     out = chunk.choices[0].delta.content
                     output += out
                 example = ds.put_output(output, example)
-                print("example", example)
                 ds.single_evaluate(example, i)
                 examples.append(example)
                 print("Response ", i, "generated.")
