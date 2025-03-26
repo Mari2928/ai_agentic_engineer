@@ -111,7 +111,7 @@ This section provides instructions for setting up each of the three templates us
 1. **Create baseline runs and copy the results to `MoA_code`:**
 
    ```bash
-   cd templates/SingleLLM_code
+   cd ../templates/SingleLLM_code
    python experiment.py --out_dir run_0
    cp -R run_0 MoA_code/run_0/
    ```
