@@ -113,7 +113,7 @@ This section provides instructions for setting up each of the three templates us
    ```bash
    cd ../templates/SingleLLM_code
    python experiment.py --out_dir run_0
-   cp -R run_0 MoA_code/run_0/
+   cp -R run_0 ../MoA_code/run_0
    ```
 
 ### MoA for Sequential Optimization Template
@@ -125,9 +125,9 @@ This section provides instructions for setting up each of the three templates us
 1. **Create baseline runs and copy the results to `MoA_optim`:**
 
    ```bash
-   cd templates/SingleLLM_optim
+   cd ../SingleLLM_optim
    python experiment.py --out_dir run_0
-   cp -R run_0 MoA_optim/run_0/
+   cp -R run_0 ../MoA_optim/run_0/
    ```
 
 ### MoA for Recommendation Template
@@ -139,9 +139,9 @@ This section provides instructions for setting up each of the three templates us
 1. **Create baseline runs and copy the results to `MoA_recsys`:**
 
    ```bash
-   cd templates/SingleLLM_recsys
+   cd ../SingleLLM_recsys
    python experiment.py --out_dir run_0
-   cp -R run_0 MoA_recsys/run_0/
+   cp -R run_0 ../MoA_recsys/run_0/
    ```
 
 ## Run AI Agentic Engineer Report Generation Experiments
