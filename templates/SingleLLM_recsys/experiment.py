@@ -91,7 +91,6 @@ DO NOT include string format with double-quotation mark (") or any text explanat
                     output += out
 
                 example = ds.put_output(output, example)
-                print(example)
                 ds.single_evaluate(example, i)
                 examples.append(example)
                 print("Response ", i, "generated.")
