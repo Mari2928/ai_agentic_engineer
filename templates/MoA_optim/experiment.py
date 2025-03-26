@@ -97,8 +97,6 @@ async def main( loop ):
 
                 final_prompt = user_prompt
 
-                print("final_prompt", final_prompt)
-
                 results = await asyncio.gather(*[run_llm(model, final_prompt, loop) for model in reference_models])
 
                 for _ in range(1, layers - 1):
@@ -122,7 +120,6 @@ async def main( loop ):
                     out = chunk.choices[0].delta.content
                     output += out
                 example = ds.put_output(output, example)
-                print("example", example)
                 ds.single_evaluate(example, i)
                 examples.append(example)
                 print("Response ", i, "generated.")
