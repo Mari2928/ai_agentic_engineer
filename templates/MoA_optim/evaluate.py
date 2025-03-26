@@ -18,13 +18,10 @@ class Evaluate():
     def __init__( self, dataset ):
         self.dataset = dataset
         self.train_log_info = []
-        if self.dataset == "human_eval":
-            self.eval_set = read_problems()
-        elif self.dataset == "ml_regression":
-            self.mses = []
-            self.eval_set = self.read_ml_model()
-            open('ml_results.txt', 'w').close()
-            self.code_start = """
+        self.mses = []
+        self.eval_set = self.read_ml_model()
+        open('ml_results.txt', 'w').close()
+        self.code_start = """
 import os
 import json
 import numpy as np
@@ -46,7 +43,7 @@ X_test_bias = np.hstack([np.ones((X_test.shape[0], 1)), X_test])
 # Optimize weights (manual optimization)
 # weights = [bias, coefficient]
             """
-            self.code_end = """
+        self.code_end = """
 def predict(X, weights):
     return X.dot(weights)
 
@@ -67,14 +64,14 @@ self.mses.append(mse_manual)
 print(f"Manual Weights: {manual_weights}")
 print(f"Manual Regression MSE: {mse_manual:.2f}")    
 """
-            self.optimize_instruction_form = """ 
+        self.optimize_instruction_form = """ 
 You are an AI optimizer who is tuning weights for a machine learning regression model in Python, aiming to minimize MSE.
 If you can get MSE around 400.00 that would be great.
 Be efficient and cautious in your decision.
             """
-            X, y = make_regression(n_samples=100, n_features=1, noise=20, random_state=42)
-            _, X_test, _, self.y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-            self.X_test_bias = np.hstack([np.ones((X_test.shape[0], 1)), X_test])
+        X, y = make_regression(n_samples=100, n_features=1, noise=20, random_state=42)
+        _, X_test, _, self.y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+        self.X_test_bias = np.hstack([np.ones((X_test.shape[0], 1)), X_test])
 
     def read_ml_model( self ):
         ml_model = """
@@ -85,104 +82,64 @@ manual_weights = [0, 0]  # You can adjust these values to experiment
         return [ml_model for _ in range(30)]
 
     def get_user_prompt( self, example ):
-        if self.dataset == "human_eval":
-            return self.eval_set[example]["prompt"]
-        elif self.dataset == "ml_regression":
-            if os.path.exists("ml_results.txt"):
-                fewshot_prompt = """
+        if os.path.exists("ml_results.txt"):
+            fewshot_prompt = """
 Below are some sample results from previous runs. 
-                 """
-                with open("ml_results.txt", 'r') as file:
-                    for result in file:
-                        fewshot_prompt += f"""
+             """
+            with open("ml_results.txt", 'r') as file:
+                for result in file:
+                    fewshot_prompt += f"""
 
-                        Result:
+                    Result:
 
-                        ```
-                        {result}
-                        ```
-                        """
-                base_prompt = self.optimize_instruction_form + fewshot_prompt
-            else:
-                base_prompt = self.optimize_instruction_form
+                    ```
+                    {result}
+                    ```
+                    """
+            base_prompt = self.optimize_instruction_form + fewshot_prompt
+        else:
+            base_prompt = self.optimize_instruction_form
 
-            base_prompt += f"""
+        base_prompt += f"""
 Here is the weights of the machine learning regression model you are asked to tune:
-            ```
-            {self.eval_set[0]}
-            ```
-            
+        ```
+        {self.eval_set[0]}
+        ```
+        
 Change the above manual_weights only and try to optimize the MSE as smaller as possible based on the performance in the previous runs. 
 Do not use the similar weights to the previous runs.
 Respond the weights in a list format like following:
 
 [0, 0]
- 
+
 DO NOT include a python code block with three backticks (```) or any text explanation.
-            """
-            return base_prompt
+        """
+        return base_prompt
 
     def put_output( self, output, example ):
-        if self.dataset == "human_eval":
-            return dict(task_id=example, completion=output)
-        elif self.dataset == "ml_regression":
-            return output
-
-    def get_output_file( self ):
-        if self.dataset == "human_eval":
-            return 'outputs_human_eval.jsonl'
+        return output
 
     def single_evaluate( self, example, iter_num ):
-        if self.dataset == "human_eval":
-            self.train_log_info.append(
-                {
-                    "iter": iter_num
-                }
-            )
-        elif self.dataset == "ml_regression":
-            code_mid = f"""
+        code_mid = f"""
 manual_weights = {example}
-             """
-            script = str(self.code_start) + code_mid + str(self.code_end)
-            try:
-                exec(script)
-            except:
-                print("Execution error:", script)
-                if not self.mses:
-                    self.mses.append(2213.0) # put initial MSE
-            self.train_log_info.append(
-                {
-                    "iter": iter_num,
-                    "mse": self.mses[-1],
-                }
-            )
+         """
+        script = str(self.code_start) + code_mid + str(self.code_end)
+        try:
+            exec(script)
+        except:
+            print("Execution error:", script)
+            if not self.mses:
+                self.mses.append(2213.0) # put initial MSE
+        self.train_log_info.append(
+            {
+                "iter": iter_num,
+                "mse": self.mses[-1],
+            }
+        )
 
     def evaluate( self, examples, total_run_time ):
-        if self.dataset == "human_eval":
-            open('problems_human_eval.jsonl', 'w').close()
-            with open('problems_human_eval.jsonl', 'a') as f:
-                for i, task_id in enumerate(self.eval_set):
-                    json.dump(self.eval_set[task_id], f)
-                    f.write('\n')
-
-            # # write solutions to an output file
-            output_file = self.get_output_file()
-            open(output_file, 'w').close()
-            with open(output_file, 'a') as f:
-                for example in examples:
-                    json.dump(example, f)
-                    f.write('\n')
-
-            pass_at_k, total_exec_time = evaluate_functional_correctness(sample_file=output_file,
-                                                                         problem_file='problems_human_eval.jsonl')
-            final_info = {
-                "pass_at_k": pass_at_k['pass@1'],
-                "total_exec_time": total_exec_time,
-                "total_run_time": total_run_time,
-            }
-        elif self.dataset == "ml_regression":
-            final_info = {
-                "mse": self.mses[-1],
-                "total_run_time": total_run_time,
-            }
+        final_info = {
+            "mse": self.mses[-1],
+            "total_run_time": total_run_time,
+        }
         return final_info
