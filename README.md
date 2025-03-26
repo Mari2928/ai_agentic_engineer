@@ -69,7 +69,7 @@ Writing results to data/example_samples.jsonl_results.jsonl...
 Finally, copy the custom `evaluation.py` under `human_eval`: 
 
 ```
-$ cp evaluation.py /human-eval/human_eval
+$ cp evaluation.py human-eval/human_eval
 ```
 
 ### Supported Models and API Keys
