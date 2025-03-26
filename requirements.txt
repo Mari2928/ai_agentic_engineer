@@ -1,3 +1,7 @@
 tqdm
 fire
 numpy
+aiohttp
+matplotlib
+scikit-learn
+openai
